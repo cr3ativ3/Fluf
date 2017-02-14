@@ -13,7 +13,7 @@ It is sad when you need a few specific features and suddenly majority of your ap
 ## Features
  * Provider-Method based injection from multiple Modules
  * Constructor & Setter injection
- * Supports injectin parameterized types, collections, poviders
+ * Supports injection parameterized types, collections, poviders
  * Supports specific and wildcard qualifiers
  * Does not intrude your codebase and you have all the control over the injection process
  * No need to modify (not even annotate) injectable classes
@@ -26,7 +26,7 @@ It is sad when you need a few specific features and suddenly majority of your ap
 [Guice]:<https://github.com/google/guice>
 [Picocontainer]:<https://github.com/picocontainer/picocontainer>
 [Feather]:<https://github.com/zsoltherpai/feather>
-[Download]:<#>
+[Download]:<https://github.com/cr3ativ3/Fluf/releases/download/1.0/fluf-1.0.jar>
 
 ## Want to contribute?
  * Use it. If you find a bug, report it.
