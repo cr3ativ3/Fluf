@@ -1,17 +1,32 @@
 # Fluf
-Fluf is a very flexible and lightweight Java dependency injection (DI) micro-framework. Inspired by the likes of Guice and Feather it is designed as a small independant jar (under 15kb) that you can just "drop-in" to provided basic dependency management functionality to your applications. It is kind of sad when you need a few specific features and suddenly majority of your application consists of never used code because you included those big can-do-it-all libraries. Fluf is not an all purpose solution, it just dose what it is meant to do without bloating or interfering and its limited feature set enforces best practices and well though out design sm*all* apps should follow.
+Fluf is a very flexible and lightweight Java dependency injection (DI) micro-framework. Inspired by the likes of [Guice], [Picocontainer] and [Feather] it is designed as a small independant jar (under 15kb) that you can just "drop-in" to provided basic dependency management functionality to your applications.
+
+``` java
+// Simple!
+Injector injector = Fluf.createInjector(new MyModule());
+MyService service = injector.get(MyService.class);
+```
+
+## Purpose
+It is sad when you need a few specific features and suddenly majority of your application consists of never used code because you included a big can-do-it-all library. Fluf does not try to be an all purpose solution, it just dose what it is meant to do without bloating or interfering and its feature set enforces best practices and well though out design sm**all** apps should follow.
 
 ## Features
  * Provider-Method based injection from multiple Modules
  * Constructor & Setter injection
+ * Supports injectin parameterized types, collections, poviders
+ * Supports specific and wildcard qualifiers
+ * Does not intrude your codebase and you have all the control over the injection process
  * No need to modify (not even annotate) injectable classes
- * Can inject-by-type instances, instance providers or collections of dependencies
- * Providers can cache results to always return the same instance
- * Name qualifiers can be used to specify a provider or a subset of providers
- * Supports factory-like assisted injection
+ * Supports providing singletons, scoping and factory-like assisted injection
 
-## Downloads
-* *TBA*
+## Download
+* [Download] the latest Jar
+
+[//]: # (Below are markdown link targets)
+[Guice]:<https://github.com/google/guice>
+[Picocontainer]:<https://github.com/picocontainer/picocontainer>
+[Feather]:<https://github.com/zsoltherpai/feather>
+[Download]:<#>
 
 ## Want to contribute?
  * Use it. If you find a bug, report it.
