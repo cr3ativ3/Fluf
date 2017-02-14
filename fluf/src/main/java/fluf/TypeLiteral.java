@@ -1,6 +1,8 @@
 package fluf;
 
 /**
+ * Copyright 2017 Simonas Galinis
+ * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -50,10 +52,10 @@ public abstract class TypeLiteral<T> {
 	 * parameter in the anonymous class's type hierarchy so we can reconstitute
 	 * it at runtime despite erasure.
 	 */
-	public TypeLiteral(){
+	public TypeLiteral() {
 		ParameterizedType genClass = (ParameterizedType) getClass().getGenericSuperclass();
 		Type[] types = genClass.getActualTypeArguments();
-		if (types == null || types.length == 0){
+		if (types == null || types.length == 0) {
 			throw new RuntimeException("TypeLiteral<T> must have a specfied type <T>");
 		}
 		this.type = types[0];
@@ -62,9 +64,9 @@ public abstract class TypeLiteral<T> {
 		if (this.type instanceof TypeVariable)
 			throw new RuntimeException("TypeLiteral does not support TypeVariables");
 		
-		if (type instanceof Class){
+		if (type instanceof Class) {
 			this.rawType = (Class<T>) this.type;
-		} else if (type instanceof ParameterizedType){
+		} else if (type instanceof ParameterizedType) {
 			this.rawType =  (Class<T>) ((ParameterizedType) type).getRawType();
 		} else {
 			this.rawType = Object.class;

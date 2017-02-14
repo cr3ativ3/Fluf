@@ -22,8 +22,8 @@ import junit.framework.TestCase;
 public class BasicTests extends TestCase {
 
 	interface TestApi {
-		int addition(int value);
-		int substraction();
+		long addition(int value);
+		long substraction();
 		void assert2Chars();
 		<T> void assertAllChars();
 	}
@@ -48,7 +48,7 @@ public class BasicTests extends TestCase {
 		// API interface routes
 		@Bind
 		@Override
-		public int addition(int value) {
+		public long addition(int value) {
 			Injector inj = getInjector();
 			Integer intNum = inj.get(Integer.class);
 			String strNum = inj.get(String.class);
@@ -58,7 +58,7 @@ public class BasicTests extends TestCase {
 
 		@Bind
 		@Override
-		public int substraction() {
+		public long substraction() {
 			Injector inj = getInjector();
 			Integer intNum = inj.get(Integer.class);
 			String strNum = inj.get(String.class);

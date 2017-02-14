@@ -19,7 +19,7 @@ import junit.framework.TestCase;
 public class OverrideTests extends TestCase {
 
 	interface TestApi {
-		int addition();
+		long addition();
 	}
 	
 	public class ModuleA extends Module {
@@ -43,7 +43,7 @@ public class OverrideTests extends TestCase {
 		
 		// API interface routes
 		@Bind
-		public int addition() {
+		public long addition() {
 			int result = 0;
 			for (Integer i : getInjector().getAll(Integer.class)){
 				result += i;

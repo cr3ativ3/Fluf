@@ -31,6 +31,7 @@ public class MultitypeOverrideTests extends TestCase {
 	
 	public class ModuleA extends Module implements Listable {
 
+		@SuppressWarnings({ "serial", "unchecked", "rawtypes" })
 		@Bind
 		@Override
 		public List list() {
@@ -40,6 +41,7 @@ public class MultitypeOverrideTests extends TestCase {
 	
 	public class ModuleB extends ModuleA implements Listable {
 		
+		@SuppressWarnings({ "serial", "unchecked", "rawtypes" })
 		@Bind
 		@Override
 		public List<Integer> list() {
@@ -47,6 +49,7 @@ public class MultitypeOverrideTests extends TestCase {
 		}
 	}
 
+	@SuppressWarnings("rawtypes")
 	public void testOverridenProviders(){
 		Injector injA = Fluf.createInjector(new ModuleA());
 		Injector injB = Fluf.createInjector(new ModuleB());

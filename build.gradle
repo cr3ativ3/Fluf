@@ -1,42 +1,9 @@
-apply plugin: 'java'
-apply plugin: 'eclipse'
+allprojects {
 
-repositories {
-	mavenCentral()
-}
-
-project.ext.versionSuffix = 'SNAPSHOT'
-
-dependencies {
-	testCompile 'junit:junit:3.8.1'
-}
-
-jar.classifier = appendSuffix('')
-
-def String appendSuffix(suffix){
-	return (versionSuffix == 'final' ?  suffix : versionSuffix + '-' + suffix)
-}
-
-task sourcesJar(type: Jar, dependsOn: classes) {
-    classifier = appendSuffix('sources')
-    from sourceSets.main.allSource
-}
-
-task javadocJar(type: Jar, dependsOn: javadoc) {
-    classifier = appendSuffix('javadoc')
-    from javadoc.destinationDir
-}
-
-task cleanJarDir << {
-	delete 'jar'
-}
-
-task buildRealease(type: Copy, dependsOn: [cleanJarDir, build, jar, sourcesJar, javadocJar]){
-	from jar, sourcesJar, javadocJar
-	into 'jar'
-}
-
-artifacts {
-    archives sourcesJar
-    archives javadocJar
+	apply plugin: 'java'
+	apply plugin: 'eclipse'
+	
+    repositories {
+        jcenter()
+    }
 }

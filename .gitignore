@@ -1,3 +1,33 @@
+#Gradle and Eclipse
+.gradle
+build/
+gradle-app.setting
+!gradle-wrapper.jar
+*.pydevproject
+.metadata
+.gradle
+bin/
+bin-test/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.settings/
+.loadpath
+target/
+.project
+.externalToolBuilders/
+*.launch
+.cproject
+.classpath
+.buildpath
+.target
+.texlipse
+*.iml
+.idea/
+
 # Windows image file caches
 Thumbs.db
 ehthumbs.db

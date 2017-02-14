@@ -21,8 +21,8 @@ import junit.framework.TestCase;
 public class InheritanceTests extends TestCase {
 
 	interface TestApi {
-		int addition();
-		int substraction();
+		long addition();
+		long substraction();
 	}
 	
 	public class ModuleA extends Module {
@@ -53,7 +53,7 @@ public class InheritanceTests extends TestCase {
 
 		// API interface routes
 		@Bind
-		public int addition() {
+		public long addition() {
 			Injector inj = getInjector();
 			Integer intNum = inj.get(Integer.class);
 			String strNum = inj.get(String.class);
@@ -62,7 +62,7 @@ public class InheritanceTests extends TestCase {
 		}
 
 		@Bind
-		public int substraction() {
+		public long substraction() {
 			Injector inj = getInjector();
 			Integer intNum = inj.get(Integer.class);
 			String strNum = inj.get(String.class);

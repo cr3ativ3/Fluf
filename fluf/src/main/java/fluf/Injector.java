@@ -1,6 +1,8 @@
 package fluf;
 
 /**
+ * Copyright 2017 Simonas Galinis
+ * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -24,8 +26,8 @@ import java.util.Set;
 
 /**
  * Class responsible for gathering injection bindings from modules as well as
- * resolving the instance for requested type. Basically it acts as both a "binder"
- * and an "injector" as used in terms of other popular injection frameworks.
+ * resolving the instance for requested type. Basically it acts as both a <b>{@code Binder}</b>
+ * and an <b>{@code Injector}</b> as used in terms of other popular injection frameworks.
  */
 @SuppressWarnings("rawtypes")
 public class Injector {
@@ -36,14 +38,10 @@ public class Injector {
 	/**
 	 * Constructor.
 	 * 
-	 * @param modules modules to install into this injector
+	 * @param modules modules to install into this {@link Injector}
 	 */
-	Injector(Module[] modules){
+	Injector(Module[] modules) {
 		install(modules);
-	}
-	
-	private Injector(Collection<Provider> providers){
-		this.providers.addAll(providers);
 	}
 
 	/**
@@ -54,21 +52,24 @@ public class Injector {
 	 * 
 	 * @return the extending injector
 	 */
-	public Injector extendWith(Module...modules){
-		Injector extended = new Injector(getProviders());
+	public Injector extendWith(Module...modules) {
+		Injector extended = new Injector(new Module[]{});
+		for (Provider<?> p : providers) {
+			add(p);
+		}
 		extended.install(modules);
 		return extended;
 	}
-	
+
 	/**
 	 * Returns an instance from a provider matching given {@link TypeLiteral}'s type.
 	 * 
 	 * @param type type as {@link TypeLiteral}
 	 * @param <T> requested type
 	 * 
-	 * @return instance of type T
+	 * @return instance of type {@code T}
 	 */
-	public <T> T get(TypeLiteral<T> type){
+	public <T> T get(TypeLiteral<T> type) {
 		return get(type, null);
 	}
 	
@@ -80,10 +81,10 @@ public class Injector {
 	 * @param name the name
 	 * @param <T> requested type
 	 * 
-	 * @return instance of type T
+	 * @return instance of type {@code T}
 	 */
 	@SuppressWarnings("unchecked")
-	public <T> T get(TypeLiteral<T> type, String name){
+	public <T> T get(TypeLiteral<T> type, String name) {
 		Provider provider = find(type.getType(), name, null);
 		return (provider == null ? null : (T) provider.get()); 
 	}
@@ -94,9 +95,9 @@ public class Injector {
 	 * @param typeClass type as Class
 	 * @param <T> requested type
 	 * 
-	 * @return instance of type T
+	 * @return instance of type {@code T}
 	 */
-	public <T> T get(Class<T> typeClass){
+	public <T> T get(Class<T> typeClass) {
 		return get(typeClass, null);
 	}
 	
@@ -107,9 +108,9 @@ public class Injector {
 	 * @param name the name
 	 * @param <T> requested type
 	 * 
-	 * @return instance of type T
+	 * @return instance of type {@code T}
 	 */
-	public <T> T get(Class<T> typeClass, String name){
+	public <T> T get(Class<T> typeClass, String name) {
 		Provider provider = find(typeClass, name, null);
 		return (provider == null ? null : typeClass.cast(provider.get()));
 	}
@@ -122,7 +123,7 @@ public class Injector {
 	 * 
 	 * @return a set of instances
 	 */
-	public <T> Set<T> getAll(TypeLiteral<T> type){
+	public <T> Set<T> getAll(TypeLiteral<T> type) {
 		return getAll(type, null);
 	}
 	
@@ -138,8 +139,8 @@ public class Injector {
 	 * 
 	 * @return set of instances
 	 */
-	public <T> Set<T> getAll(TypeLiteral<T> type, String name){
-		Collection<Provider> providers = findAll(type.getType(), name, null);
+	public <T> Set<T> getAll(TypeLiteral<T> type, String name) {
+		Collection<Provider> providers = findMatchingProviders(type.getType(), name, null);
 		return multipleResults(providers, type.getRawType()); 
 	}
 
@@ -151,7 +152,7 @@ public class Injector {
 	 * 
 	 * @return set of instances
 	 */
-	public <T> Collection<T> getAll(Class<T> typeClass){
+	public <T> Collection<T> getAll(Class<T> typeClass) {
 		return getAll(typeClass, null);
 	}
 	
@@ -167,8 +168,8 @@ public class Injector {
 	 * 
 	 * @return set of instances
 	 */
-	public <T> Set<T> getAll(Class<T> typeClass, String name){
-		Collection<Provider> providers = findAll(typeClass, name, null);
+	public <T> Set<T> getAll(Class<T> typeClass, String name) {
+		Collection<Provider> providers = findMatchingProviders(typeClass, name, null);
 		return multipleResults(providers, typeClass);
 	}
 	
@@ -177,7 +178,7 @@ public class Injector {
 	 * 
 	 * @return list of providers
 	 */
-	List<Provider> getProviders(){
+	final List<Provider> getProviders() {
 		return Collections.unmodifiableList(this.providers);
 	}
 
@@ -197,7 +198,7 @@ public class Injector {
 	 * @return matching provider or null if none match
 	 */
 	Provider find(Type type, String name, Type[] dependencies) {
-		return singleResult(findAll(type, name, dependencies));
+		return singleResult(findMatchingProviders(type, name, dependencies));
 	}
 	
 	/**
@@ -214,13 +215,13 @@ public class Injector {
 	 * 
 	 * @return collection with all matching providers, can be empty
 	 */
-	protected Collection<Provider> findAll(Type type, String name, Type[] dependencies) {
+	protected Collection<Provider> findMatchingProviders(Type type, String name, Type[] dependencies) {
 		ProviderFinder finder = new ProviderFinder(getProviders())
 			.byReturnType(type);
-		if (name != null){
+		if (name != null) {
 			finder.byName(name);
 		}
-		if (dependencies != null && dependencies.length > 0){
+		if (dependencies != null && dependencies.length > 0) {
 			finder.byArguments(dependencies);
 		}
 		return finder.find();
@@ -229,11 +230,11 @@ public class Injector {
 	/**
 	 * Adds provider to this {@link Injector} instance.
 	 * 
-	 * @param provider provider to add
+	 * @param provider {@link Provider} to add
 	 */
 	void add(Provider provider) {
 		int pos = this.providers.indexOf(provider);
-		if (pos == -1){
+		if (pos == -1) {
 			this.providers.add(provider);
 			return;
 		}
@@ -243,14 +244,16 @@ public class Injector {
 	}
 	
 	private void install(Module...modules) {
+		Provider.checkNotNull(modules, "module array");
 		for (Module module : modules){
+			Provider.checkNotNull(module, "module");
 			module.configure(this);
 		}
 	}
 	
 	private <T> Set<T> multipleResults(Collection<Provider> collection, Class<T> clazz) {
 		Set<T> all = new HashSet<T>();
-		for (Provider mp : collection){
+		for (Provider mp : collection) {
 			@SuppressWarnings("unchecked")
 			T value = (T) mp.get();
 			all.add(value);
@@ -259,10 +262,10 @@ public class Injector {
 	}
 	
 	private Provider singleResult(Collection<Provider> collection) {
-		if (collection == null | collection.isEmpty()){
+		if (collection == null || collection.isEmpty()) {
 			return null;
 		}
-		if (collection.size() > 1){
+		if (collection.size() > 1) {
 			throw new RuntimeException(String.format("Multiple candidates found:\n%s", collection));
 		}
 		return collection.iterator().next();

@@ -1,6 +1,8 @@
 package fluf;
 
 /**
+ * Copyright 2017 Simonas Galinis
+ * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -31,22 +33,22 @@ import java.lang.annotation.Target;
  *   public class VehicleModule extends Module {
  *   
  *     <b>@Bind("driver")</b>
- *     Seat driverSeat(){
+ *     Seat driverSeat() {
  *     	...
  *     };
  *     
  *     <b>@Bind</b>
- *     Seat passengerSeat(){
+ *     Seat passengerSeat() {
  *     	...
  *     };
  *     
  *     <b>@Bind</b>
- *     Engine provideEngine(){
+ *     Engine provideEngine() {
  *     	...
  *     };
  *     
  *     <b>@Bind(cache = true)</b>
- *     Car transporter(<b>@Bind</b> Engine engine, <b>@Bind("driver")</b> Seat seat1, <b>@Bind("passengerSeat")</b> Seat seat2){
+ *     Car transporter(<b>@Bind</b> Engine engine, <b>@Bind("driver")</b> Seat seat1, <b>@Bind("passengerSeat")</b> Seat seat2) {
  *     	...
  *     };
  *   }</pre>

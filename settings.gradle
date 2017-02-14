@@ -1,1 +1,1 @@
-rootProject.name = artefactBaseName
+include ':fluf', ':sample'
