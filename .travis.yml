@@ -11,7 +11,7 @@ before_install:
 
 install:
   - ./gradlew -v 
-  - ./gradlew clean javadoc check
+  - ./gradlew clean javadoc
 
 cache:
   directories:
