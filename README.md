@@ -1,39 +1,45 @@
+[![](https://jitpack.io/v/cr3ativ3/fluf.svg)](https://jitpack.io/#cr3ativ3/fluf)
 # Fluf
-Fluf is a very flexible and lightweight Java dependency injection (DI) micro-framework. Inspired by the likes of [Guice], [Picocontainer] and [Feather] it is designed as a small independant jar (under 15kb) that you can just "drop-in" to provided basic dependency management functionality to your applications.
+Fluf is fully featured flexible and lightweight Java dependency injection (DI) micro-framework. Inspired by the likes of [Guice], [Picocontainer] and [Feather] it is designed as a small independant jar (under 15kb) that you can just "drop-in" to provided basic dependency management functionality to your applications.
 
 ``` java
 // Simple!
 Injector injector = Fluf.createInjector(new MyModule());
 MyService service = injector.get(MyService.class);
 ```
-
-## Purpose
-It is sad when you need a few specific features and suddenly majority of your application consists of never used code because you included a big can-do-it-all library. Fluf does not try to be an all purpose solution, it just dose what it is meant to do without bloating or interfering and its feature set enforces best practices and well though out design sm**all** apps should follow.
-
 ## Features
- * Provider-Method based injection from multiple Modules
- * Constructor & Setter injection
- * Supports injection parameterized types, collections, poviders
- * Supports specific and wildcard qualifiers
- * Does not intrude your codebase and you have all the control over the injection process
+ * Inject with Modules for production while sing TestModules for testing
+ * @Inject supports fields, constructor & setter
+ * Supports injection of parameterized types, collections, poviders
+ * Supports regex qualifiers
+ * Does not intrude on your codebase and you have all the control over the injection process
  * No need to modify (not even annotate) injectable classes
  * Supports providing singletons, scoping and factory-like assisted injection
 
+## Add to your build.gradle
+```
+repositories {		
+    maven { url 'https://jitpack.io' }
+}
+
+dependencies {
+    compile 'com.github.cr3ativ3:fluf:1.0.1'
+}
+```
 ## Download
-* [Download] the latest Jar
+* [Download] 1.0 Jar
 
 [//]: # (Below are markdown link targets)
 [Guice]:<https://github.com/google/guice>
 [Picocontainer]:<https://github.com/picocontainer/picocontainer>
 [Feather]:<https://github.com/zsoltherpai/feather>
 [Download]:<https://github.com/cr3ativ3/Fluf/releases/download/1.0/fluf-1.0.jar>
+[issue-tracker]:<https://github.com/cr3ativ3/Fluf/issues>
 
-## Want to contribute?
- * Use it. If you find a bug, report it.
- * Pull requests for more unit tests are always welcome.
- * New feature or improvement suggestions are also welcome if they align with Fluf's core mission.
+## Found a bug?
+ * Please submit to [issue-tracker]
 
-## Usage examples
+# Usage examples
 
 ### Modules
 ``` java
