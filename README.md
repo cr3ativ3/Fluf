@@ -1,4 +1,5 @@
 [![](https://jitpack.io/v/cr3ativ3/fluf.svg)](https://jitpack.io/#cr3ativ3/fluf)
+[![Build Status](https://travis-ci.org/cr3ativ3/Fluf.svg?branch=master)](https://travis-ci.org/cr3ativ3/Fluf)
 # Fluf
 Fluf is fully featured flexible and lightweight Java dependency injection (DI) micro-framework. Inspired by the likes of [Guice], [Picocontainer] and [Feather] it is designed as a small independant jar (under 15kb) that you can just "drop-in" to provided basic dependency management functionality to your applications.
 
