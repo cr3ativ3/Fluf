@@ -1,0 +1,18 @@
+language: java
+
+jdk:
+  - oraclejdk8
+  - openjdk8
+
+before_install:
+  - chmod +x ./gradlew
+  - ls -l gradlew
+  - ./gradlew wrapper -v
+
+install:
+  - ./gradlew -v 
+  - ./gradlew clean javadoc
+
+cache:
+  directories:
+    - $HOME/.m2
