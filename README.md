@@ -23,17 +23,14 @@ repositories {
 }
 
 dependencies {
-    compile 'com.github.cr3ativ3:fluf:1.0.1'
+    compile 'com.github.cr3ativ3:fluf:1.0.2'
 }
 ```
-## Download
-* [Download] 1.0 Jar
 
 [//]: # (Below are markdown link targets)
 [Guice]:<https://github.com/google/guice>
 [Picocontainer]:<https://github.com/picocontainer/picocontainer>
 [Feather]:<https://github.com/zsoltherpai/feather>
-[Download]:<https://github.com/cr3ativ3/Fluf/releases/download/1.0/fluf-1.0.jar>
 [issue-tracker]:<https://github.com/cr3ativ3/Fluf/issues>
 
 ## Found a bug?
