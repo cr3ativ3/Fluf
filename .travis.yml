@@ -4,16 +4,7 @@ jdk:
   - oraclejdk8
 
 before_install:
-  - echo "MAVEN_OPTS='-Xmx2048M -Xss128M'" > ~/.mavenrc
-
-install:
-  # Ensure Gradle wrapper is executable, download wrapper and show version
   - chmod +x ./gradlew; ls -l gradlew; ./gradlew wrapper -v
-  # Download and show android dependencies
-  # - ./gradlew androidDependencies
-
-script:
-  - ./gradlew clean assembleDebug
 
 cache:
   directories:
